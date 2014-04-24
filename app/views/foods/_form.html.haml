@@ -1,0 +1,20 @@
+= form_for [@pub, @food] do |f|
+  = render 'layouts/error_messages', object: @food
+  = f.label :name
+  = f.text_field :name
+  %br
+  = f.label :cost
+  = f.text_field :cost
+  %br
+  = f.label :description
+  = f.text_area :description
+  %br
+
+  - @categories.each do |category|
+    = check_box_tag 'food[category_ids][]', category.id, @food.categories.include?(category), {id: "category_id_#{category.id}"}
+    = label_tag "category_id_#{category.id}", category.name
+    %br
+  %br
+
+  = f.submit
+= link_to "Cancel", pub_path(@pub)
